@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://code.alibabatech.com/schema/dubbo  
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+       >
+
+    <context:annotation-config/>
+			<context:component-scan base-package="com.cgw360" />
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    
+    <context:property-placeholder location="classpath*:config.properties" ignore-unresolvable="true"/>
+    
+	<import resource="classpath*:/spring/cls-bss-context.xml"/>
+    <import resource="classpath*:/dubbo/cls-admin-service.xml"/>
+    <import resource="classpath*:/dubbo/staff-service.xml"/>
+    
+    
+    
+   	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+    
+    <bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:db.properties</value>
+			</list>
+		</property>
+		</bean>
+
+    	<bean id="clsDataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.mysql.driver}" />
+        <property name="url" value="${jdbc.cls.url}" />
+        <property name="username" value="${jdbc.cls.username}" />
+        <property name="password" value="${jdbc.cls.password}" />				
+    	</bean>
+    	
+    	<bean id="zaAdminDataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.mysql.driver}" />
+        <property name="url" value="${jdbc.zaAdmin.url}" />
+        <property name="username" value="${jdbc.zaAdmin.username}" />
+        <property name="password" value="${jdbc.zaAdmin.password}" />				
+    	</bean>
+    	
+    	<bean id="autoDataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.mysql.driver}" />
+        <property name="url" value="${jdbc.auto.url}" />
+        <property name="username" value="${jdbc.auto.username}" />
+        <property name="password" value="${jdbc.auto.password}" />				
+    	</bean>
+    	
+    	
+    
+</beans>

@@ -1,0 +1,1 @@
+delete from cls.repayment_card_info where project_id in ('1025','1026')
